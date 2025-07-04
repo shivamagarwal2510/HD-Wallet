@@ -12,9 +12,10 @@ interface Account {
 interface AccountsListProps {
   accounts: Account[];
   onAddAccount: () => void;
+  seedPhrase: string[];
 }
 
-const AccountsList: React.FC<AccountsListProps> = ({ accounts, onAddAccount }) => {
+const AccountsList: React.FC<AccountsListProps> = ({ accounts, onAddAccount, seedPhrase }) => {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -24,7 +25,7 @@ const AccountsList: React.FC<AccountsListProps> = ({ accounts, onAddAccount }) =
     >
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-white">Accounts</h2>
-        <motion.button
+        {seedPhrase.length > 0 && <motion.button
           onClick={onAddAccount}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -32,7 +33,7 @@ const AccountsList: React.FC<AccountsListProps> = ({ accounts, onAddAccount }) =
         >
           <Plus size={16} />
           <span>Add Account</span>
-        </motion.button>
+        </motion.button>}
       </div>
 
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
