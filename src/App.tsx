@@ -17,7 +17,7 @@ function App() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="w-full px-4 sm:px-6 lg:px-8 mb-4"
+          className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 mb-4"
         >
           <div className="bg-red-900/50 border border-red-700 rounded-lg p-4 backdrop-blur-sm">
             <div className="flex items-center space-x-2">
@@ -32,7 +32,7 @@ function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8"
+        className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8"
       >
         <SeedPhrase 
           seedPhrase={seedPhrase}
