@@ -123,12 +123,17 @@ const AccountCard: React.FC<AccountCardProps> = ({ account, delay = 0 }) => {
                 />
               </>
             ) : (
-              <input
-                type="password"
-                className="text-sm font-mono text-gray-100 hidden sm:block overflow-x-auto bg-inherit focus:outline-none w-full"
-                value={account.privateKey}
-                readOnly
-              />
+              <>
+                <code className="text-sm font-mono text-gray-100 block sm:hidden">
+                  {"•".repeat(16)}
+                </code>
+                <input
+                  type="password"
+                  className="text-sm font-mono text-gray-100 hidden sm:block overflow-x-auto bg-inherit focus:outline-none w-full"
+                  value={account.privateKey}
+                  readOnly
+                />
+              </>
             )}
           </div>
           <motion.button

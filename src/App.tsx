@@ -3,20 +3,21 @@ import { motion } from 'framer-motion';
 import Header from './components/Header';
 import SeedPhrase from './components/SeedPhrase';
 import AccountsList from './components/AccountsList';
+import Footer from './components/Footer';
 import { useWallet } from './hooks/useWallet';
 
 function App() {
   const { seedPhrase, accounts, generateNewWallet, addAccount, error, deleteAllWallets, importWallet } = useWallet();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex flex-col">
       <Header />
       {error && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="max-w-6xl mx-auto px-4 mb-4"
+          className="w-full px-4 sm:px-6 lg:px-8 mb-4"
         >
           <div className="bg-red-900/50 border border-red-700 rounded-lg p-4 backdrop-blur-sm">
             <div className="flex items-center space-x-2">
@@ -31,7 +32,7 @@ function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="max-w-6xl mx-auto px-4 py-8 space-y-8"
+        className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8"
       >
         <SeedPhrase 
           seedPhrase={seedPhrase}
@@ -46,6 +47,8 @@ function App() {
           seedPhrase={seedPhrase}
         />
       </motion.main>
+
+      <Footer />
 
       {/* Background decoration */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
