@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Copy, Eye, EyeOff, Check, X } from 'lucide-react';
-import { copyToClipboard } from '../utils/clipboard';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Copy, Eye, EyeOff, Check, X } from "lucide-react";
+import { copyToClipboard } from "../utils/clipboard";
 
 interface Account {
   index: number;
@@ -21,17 +21,17 @@ const AccountCard: React.FC<AccountCardProps> = ({ account, delay = 0 }) => {
   const handleCopy = async (text: string, type: string) => {
     try {
       const success = await copyToClipboard(text);
-      
+
       if (success) {
         setCopiedKey(type);
         setTimeout(() => setCopiedKey(null), 2000);
       } else {
-        setCopiedKey('error');
+        setCopiedKey("error");
         setTimeout(() => setCopiedKey(null), 2000);
       }
     } catch (error) {
-      console.error('Copy failed:', error);
-      setCopiedKey('error');
+      console.error("Copy failed:", error);
+      setCopiedKey("error");
       setTimeout(() => setCopiedKey(null), 2000);
     }
   };
@@ -44,7 +44,7 @@ const AccountCard: React.FC<AccountCardProps> = ({ account, delay = 0 }) => {
     if (copiedKey === keyType) {
       return <Check size={16} className="text-green-400" />;
     }
-    if (copiedKey === 'error') {
+    if (copiedKey === "error") {
       return <X size={16} className="text-red-400" />;
     }
     return <Copy size={16} className="text-gray-400 hover:text-white" />;
@@ -58,7 +58,9 @@ const AccountCard: React.FC<AccountCardProps> = ({ account, delay = 0 }) => {
       className="bg-gray-800 border border-gray-600 rounded-xl p-6 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
     >
       <div className="flex items-center justify-between mb-6">
-        <h3 className="font-semibold text-white text-lg">Account #{account.index}</h3>
+        <h3 className="font-semibold text-white text-lg">
+          Account #{account.index}
+        </h3>
         <div className="px-3 py-1 bg-blue-600 text-white text-xs rounded-full font-medium">
           Active
         </div>
@@ -77,16 +79,16 @@ const AccountCard: React.FC<AccountCardProps> = ({ account, delay = 0 }) => {
             <code className="text-sm font-mono text-gray-100 hidden sm:block overflow-x-auto">
               {account.publicKey}
             </code>
+            <motion.button
+              onClick={() => handleCopy(account.publicKey, "public")}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="absolute right-3 top-1 p-2 rounded-md hover:bg-gray-700 transition-colors"
+              title="Copy public key"
+            >
+              {getCopyIcon("public")}
+            </motion.button>
           </div>
-          <motion.button
-            onClick={() => handleCopy(account.publicKey, 'public')}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 rounded-md hover:bg-gray-700 transition-colors"
-            title="Copy public key"
-          >
-            {getCopyIcon('public')}
-          </motion.button>
         </div>
       </div>
 
@@ -113,34 +115,30 @@ const AccountCard: React.FC<AccountCardProps> = ({ account, delay = 0 }) => {
                 <code className="text-sm font-mono text-gray-100 block sm:hidden">
                   {truncateKey(account.privateKey)}
                 </code>
-                <code className="text-sm font-mono text-gray-100 hidden sm:block overflow-x-auto">
-                  {account.privateKey}
-                </code>
+                <input
+                  type="text"
+                  className="text-sm font-mono text-gray-100 hidden sm:block overflow-x-auto bg-inherit focus:outline-none w-full"
+                  value={account.privateKey}
+                  readOnly
+                />
               </>
             ) : (
-              <div className="flex items-center justify-center py-1">
-                <div className="flex space-x-1">
-                  {Array.from({ length: 60 }, (_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.2, delay: i * 0.01 }}
-                      className="w-1 h-1 bg-gray-500 rounded-full"
-                    />
-                  ))}
-                </div>
-              </div>
+              <input
+                type="password"
+                className="text-sm font-mono text-gray-100 hidden sm:block overflow-x-auto bg-inherit focus:outline-none w-full"
+                value={account.privateKey}
+                readOnly
+              />
             )}
           </div>
           <motion.button
-            onClick={() => handleCopy(account.privateKey, 'private')}
+            onClick={() => handleCopy(account.privateKey, "private")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 rounded-md hover:bg-gray-700 transition-colors"
+            className="absolute right-3 top-1 p-2 rounded-md hover:bg-gray-700 transition-colors"
             title="Copy private key"
           >
-            {getCopyIcon('private')}
+            {getCopyIcon("private")}
           </motion.button>
         </div>
       </div>

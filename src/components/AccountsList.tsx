@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Plus } from 'lucide-react';
-import AccountCard from './AccountCard';
+import React from "react";
+import { motion } from "framer-motion";
+import { Plus } from "lucide-react";
+import AccountCard from "./AccountCard";
 
 interface Account {
   index: number;
@@ -15,7 +15,11 @@ interface AccountsListProps {
   seedPhrase: string[];
 }
 
-const AccountsList: React.FC<AccountsListProps> = ({ accounts, onAddAccount, seedPhrase }) => {
+const AccountsList: React.FC<AccountsListProps> = ({
+  accounts,
+  onAddAccount,
+  seedPhrase,
+}) => {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -25,18 +29,20 @@ const AccountsList: React.FC<AccountsListProps> = ({ accounts, onAddAccount, see
     >
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-white">Accounts</h2>
-        {seedPhrase.length > 0 && <motion.button
-          onClick={onAddAccount}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-green-500/25"
-        >
-          <Plus size={16} />
-          <span>Add Account</span>
-        </motion.button>}
+        {seedPhrase.length > 0 && (
+          <motion.button
+            onClick={onAddAccount}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-green-500/25"
+          >
+            <Plus size={16} />
+            <span>Add Account</span>
+          </motion.button>
+        )}
       </div>
 
-      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
+      <div className="flex flex-col gap-4">
         {accounts.map((account, index) => (
           <AccountCard
             key={account.index}
@@ -53,7 +59,9 @@ const AccountsList: React.FC<AccountsListProps> = ({ accounts, onAddAccount, see
           className="text-center py-12 text-gray-400"
         >
           <p className="text-lg mb-2">No accounts generated yet</p>
-          <p className="text-sm">Generate a new wallet to create your first account</p>
+          <p className="text-sm">
+            Generate a new wallet to create your first account
+          </p>
         </motion.div>
       )}
     </motion.section>
